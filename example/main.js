@@ -1,3 +1,4 @@
+import MVVM from 'mvvm'
 
 const template = `
 	<h2>Welcome {{user.firstname}} <span>{{user.lastname}}</span></h2>
@@ -6,4 +7,25 @@ const template = `
 	<button v-on:click="sayHi">change model</button>
 `;
 
-const vm = new MVVM();
+const vm = new MVVM({
+  el: '#app',
+  template,
+  data: {
+    word: 'Hello World!',
+    user: {
+      firstname: 'weng', 
+      lastname: 'jq'
+    }
+  },
+  computed: {
+    fullname: function () {
+      // getter 调用
+      return this.user.firstname + ' ' + this.user.lastname;
+    }
+  },
+  methods: {
+    sayHi: function() {
+      this.word = 'Hi, everybody!';
+    }
+  }
+});

@@ -100,9 +100,11 @@ __WEBPACK_IMPORTED_MODULE_0__instance_index__["a" /* default */].version = '1.0.
 "use strict";
 
 function MVVM(options) {
-  if ("production".NODE_ENV !== 'production' && !(this instanceof Vue)) {
+  if ("production".NODE_ENV !== 'production' && !(this instanceof MVVM)) {
     warn('MVVM is a constructor and should be called with the `new` keyword');
   }
+  alert(666);
+  this.data = 2;
   //this._init(options)
 }
 

@@ -2,7 +2,7 @@
   "name": "mvvm",
   "version": "1.0.0",
   "description": "mvvm",
-  "main": "index.js",
+  "main": "dist/mvvm.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "node build/devServer.js",
