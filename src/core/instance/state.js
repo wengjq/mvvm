@@ -1,24 +1,25 @@
+import {observe} from '../observer/index'
+
 export function initState (vm) {
   const opts = vm.$options;
 
   if (opts.data) {
     initData(vm);
   } else {
-   // observe(vm._data = {}, true);
+    observe(vm._data = {}, true);
   }
 }
 
 export function proxy (target, sourceKey, key) {
-  var _this = this;
 
   Object.defineProperty(target, key, {
     enumerable: true,
     configurable: true,
-    get: function proxyGetter() {
-      return _this[sourceKey][key];;
+    get: () => {
+      return target[sourceKey][key];;
     },
-    set: function proxySetter(newVal) {
-      _thisthis[sourceKey][key] = newVal;
+    set: (newVal) => {
+      target[sourceKey][key] = newVal;
     }
   });
 }
@@ -39,5 +40,6 @@ function initData (vm) {
 
     proxy(vm, `_data`, key);
   }
-  console.log(vm)
+  // observe data
+  observe(data, true /* asRootData */);
 }

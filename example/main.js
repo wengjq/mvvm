@@ -29,3 +29,6 @@ const vm = new MVVM({
     }
   }
 });
+
+console.log(888)
+console.log(vm)
