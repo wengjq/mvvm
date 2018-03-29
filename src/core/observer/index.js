@@ -6,18 +6,18 @@ import {
 } from '../util/index'
 
 export class Observer {
-  constructor (data) {
-    this.data = data;
+  constructor (value) {
+    this.value = value;
 
     this.dep = new Dep();
 
     this.vmCount = 0;
-    def(data, '__ob__', this);
+    def(value, '__ob__', this);
 
-    if (Array.isArray(data)) {
+    if (Array.isArray(value)) {
       
     } else {
-      this.walk(data)
+      this.walk(value)
     }
   }
 
@@ -25,7 +25,7 @@ export class Observer {
     const keys = Object.keys(obj);
 
     for (let i = 0; i < keys.length; i++) {
-      defineReactive(obj, keys[i]);
+      defineReactive(obj, keys[i], obj[keys[i]]);
     }
   }
 }
@@ -49,7 +49,7 @@ export function defineReactive(obj, key, val) {
 
   // 深度观察
   let childOb = observe(val);
-
+ 
   Object.defineProperty(obj, key, {
     enumerable: true,
     configurable: true,
@@ -59,7 +59,7 @@ export function defineReactive(obj, key, val) {
         // 将当前的 watcher 观察员 传递至数据对象的观察集合中
         // 如果已经存在于数据集合中, 则忽略
         dep.depend();
-        
+
         if (childOb) {
           // 将当前的 watcher 传递给子对象的 数据对象的观察员集合
           childOb.dep.depend();
@@ -80,6 +80,7 @@ export function defineReactive(obj, key, val) {
 
       // 如果为对象，则创建新的 __ob__ 对象
       childOb = observe(newVal);
+
       dep.notify();
     }
   });
