@@ -47,7 +47,7 @@ export function defineReactive(obj, key, val) {
   const getter = property && property.get;
   const setter = property && property.set;
 
-  // 深度观察
+  // 监听子属性
   let childOb = observe(val);
  
   Object.defineProperty(obj, key, {
